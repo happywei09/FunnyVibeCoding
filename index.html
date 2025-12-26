@@ -49,7 +49,6 @@
             border: 0px solid white;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             overflow: hidden;
-            cursor: pointer;
             position: relative;
             padding: 8px;
         }
@@ -69,21 +68,6 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-        }
-
-        .avatar:hover::after {
-            content: '📷';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            border-radius: 50%;
         }
 
         .hero h1 {
@@ -130,8 +114,14 @@
             align-items: center;
             justify-content: center;
             border-radius: 15px;
-            font-size: 14px;
-            color: #999;
+            overflow: hidden;
+        }
+
+        .qr-code img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
         }
 
         .payment-info {
@@ -171,13 +161,6 @@
             cursor: pointer;
             padding: 5px;
             font-size: 1.2em;
-        }
-
-        .note {
-            text-align: center;
-            font-size: 0.9em;
-            color: #666;
-            margin-top: 20px;
         }
 
         /* Comparison Section */
@@ -382,7 +365,6 @@
         }
 
         @media (max-width: 600px) {
-
             .comparison-grid,
             .reason-grid {
                 grid-template-columns: 1fr;
@@ -397,7 +379,7 @@
         <div class="hero">
             <div class="avatar">
                 <div class="avatar-inner">
-                    <img src="https://sf-static.upanhlaylink.com/img/image_202512263e6c4013cab1bbd02c5ae95e5319b574.jpg" alt="Screenshot_2025-12-25_123520-removebg-preview.png">
+                    <img src="https://sf-static.upanhlaylink.com/img/image_202512263e6c4013cab1bbd02c5ae95e5319b574.jpg" alt="Avatar">
                 </div>
             </div>
             <h1>NUÔI TÈO ĐI MÒ!!! 🥺</h1>
@@ -407,21 +389,9 @@
         <!-- Donate Section -->
         <div class="section">
             <h2 class="section-title">💳 DONATE NGAY ĐI!</h2>
-            <p style="text-align: center; color: #666; margin-bottom: 20px;">
-
-            </p>
 
             <div class="qr-code">
-                <img id="qrImage" src="" alt="QR Code"
-                    style="width: 100%; height: 100%; object-fit: contain; display: none; border-radius: 10px;">
-                <div id="qrPlaceholder" style="text-align: center;">
-                    <div style="font-size: 60px; margin-bottom: 10px;">📱</div>
-                    <div style="margin-bottom: 10px;">Click để tải ảnh QR lên</div>
-                    <input type="file" id="qrInput" accept="image/*" style="display: none;">
-                    <button onclick="document.getElementById('qrInput').click()"
-                        style="background: #ff4d6d; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold;">Chọn
-                        ảnh QR</button>
-                </div>
+                <img src="https://sf-static.upanhlaylink.com/img/image_20251226de92b61f8b9cf5c0fa4b9e941303eb40.jpg" alt="QR Code">
             </div>
 
             <p style="text-align: center; color: #ff4d6d; font-size: 0.9em; margin-bottom: 20px;">
@@ -431,7 +401,7 @@
             <div class="payment-info">
                 <div class="payment-label">
                     <img src="https://e7.pngegg.com/pngimages/620/176/png-clipart-tpbank-logo-vietnam-trademark-bank-purple-violet.png"
-                        alt="Techcombank" style="width: 35px; height: 35px; object-fit: contain;">
+                        alt="TPBank" style="width: 35px; height: 35px; object-fit: contain;">
                     <span>TIEN PHONG BANK</span>
                 </div>
                 <div>
@@ -451,8 +421,6 @@
                     <button class="copy-btn" onclick="copyText('0328096097')">📋</button>
                 </div>
             </div>
-
-
 
             <!-- Comparison Section -->
             <div class="section comparison">
@@ -625,41 +593,12 @@
 
             <!-- Disclaimer Footer -->
             <div class="disclaimer">
-                ⚠️ Lưu ý: Đây là trang web giải trí,Vibe coding mang tính chất hài hước. Mọi thông tin chỉ mang tính chất minh họa
+                ⚠️ Lưu ý: Đây là trang web giải trí, Vibe coding mang tính chất hài hước. Mọi thông tin chỉ mang tính chất minh họa
                 và vui vẻ. Không khuyến khích hành vi xin tiền trực tuyến. Hãy làm việc chăm chỉ và tự kiếm tiền nhé!!!!
             </div>
         </div>
 
         <script>
-            // QR Code Upload
-            document.getElementById('qrInput').addEventListener('change', function (e) {
-                const file = e.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function (event) {
-                        const img = document.getElementById('qrImage');
-                        img.src = event.target.result;
-                        img.style.display = 'block';
-                        document.getElementById('qrPlaceholder').style.display = 'none';
-
-                        // Lưu vào localStorage
-                        localStorage.setItem('qrCodeImage', event.target.result);
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-
-            // Load QR từ localStorage khi trang load
-            window.addEventListener('load', function () {
-                const savedQR = localStorage.getItem('qrCodeImage');
-                if (savedQR) {
-                    const img = document.getElementById('qrImage');
-                    img.src = savedQR;
-                    img.style.display = 'block';
-                    document.getElementById('qrPlaceholder').style.display = 'none';
-                }
-            });
-
             function copyText(text) {
                 navigator.clipboard.writeText(text).then(() => {
                     alert('Đã copy: ' + text);
